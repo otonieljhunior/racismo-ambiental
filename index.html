@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leitos da Escravidão — Observatório Ambiental</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="images/logo2.jpg" alt="Leitos da Escravidão" class="brand-img">
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Início</a>
+        <a href="mapa.html" class="nav-link">Mapa</a>
+        <a href="dados.html" class="nav-link">Dados Públicos</a>
+        <a href="#relatos" class="nav-link">Relatos</a>
+        <a href="#galeria" class="nav-link">Galeria</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero clean">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <h1>Sustenta</h1>
+          <p class="lead">Um observatório que mapeia as marcas ambientais da desigualdade em <strong>Jaboatão dos Guararapes</strong>. Visualize mapas, relatos, fotos e dados públicos coletados pela comunidade.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="mapa.html">Explorar o mapa</a>
+            <a class="btn btn-outline" href="dados.html">Ver dados públicos</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <img src="images/rio jaboatao.jpg" alt="Rio Jaboatão" class="hero-image">
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre" class="section container">
+      <h2>O Projeto</h2>
+      <p>Leitos da Escravidão é um projeto que combina geografia, pesquisa histórica e participação comunitária para revelar como o racismo estrutural e a herança da escravidão continuam a influenciar a distribuição de riscos e serviços ambientais.</p>
+      <div class="three-grid">
+        <article class="card">
+          <img src="images/img1.jpg" alt="">
+          <h3>Investigação</h3>
+          <p>Coleta de relatos, amostras e registros de campo com foco em saneamento, enchentes e descarte de resíduos.</p>
+        </article>
+        <article class="card">
+          <img src="images/img2.jpg" alt="">
+          <h3>Participação</h3>
+          <p>Relatos e imagens da comunidade alimentam o observatório, dando voz aos afetados.</p>
+        </article>
+        <article class="card">
+          <img src="images/img3.jpg" alt="">
+          <h3>Transparência</h3>
+          <p>Dados públicos e visualizações abertas para pesquisadores e gestores.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="relatos" class="section alt">
+      <div class="container">
+        <h2>Me Conte Sua História</h2>
+        <p>Envie um relato — ele será armazenado localmente (front-end) e exibido no painel público. Futuramente integraremos com um backend seguro.</p>
+
+        <form id="relatoForm" class="form-grid">
+          <div>
+            <label for="nome">Nome (opcional)</label>
+            <input id="nome" name="nome" placeholder="Seu nome">
+          </div>
+          <div>
+            <label for="bairro">Bairro</label>
+            <input id="bairro" name="bairro" placeholder="Ex: Jaboatão Centro">
+          </div>
+          <div class="full">
+            <label for="tipo">Tipo de problema</label>
+            <select id="tipo" name="tipo">
+              <option>Enchente</option>
+              <option>Lixo/Depósito irregular</option>
+              <option>Esgoto</option>
+              <option>Deslizamento</option>
+              <option>Arborização</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="texto">Relato</label>
+            <textarea id="texto" name="texto" rows="5" placeholder="Conte o que aconteceu..."></textarea>
+          </div>
+          <div class="full form-actions">
+            <button type="submit" class="btn btn-primary">Enviar relato</button>
+            <button id="limpar" type="button" class="btn btn-outline">Limpar</button>
+          </div>
+        </form>
+
+        <h3>Relatos recentes</h3>
+        <div id="relatosList" class="relatos-list"></div>
+      </div>
+    </section>
+
+    <section id="galeria" class="section container">
+      <h2>Galeria</h2>
+      <p>Fotos e ilustrações que ajudam a contar as histórias</p>
+      <div class="gallery-grid">
+        <img src="images/img4.jpg" alt="">
+        <img src="images/img5.jpg" alt="">
+        <img src="images/img6.jpg" alt="">
+        <img src="images/img7.jpg" alt="">
+      </div>
+    </section>
+
+    <section class="section container timeline-section">
+      <h2>Linha do Tempo Ambiental</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <time>século XVIII</time>
+          <p>Chegada dos engenhos de açúcar e ocupação das terras férteis — populações indígenas e africanas escravizadas foram deslocadas para áreas de risco ou forçadas a trabalhar em condições degradantes.</p>
+        </div>
+        <div class="timeline-item">
+          <time>século XIX</time>
+          <p>Formação de comunidades ribeirinhas e favelas em encostas, com população majoritariamente negra e pobre, sem acesso a água potável ou saneamento.</p>
+        </div>
+        <div class="timeline-item">
+          <time>século XX</time>
+          <p>Industrialização na região metropolitana sem políticas de proteção ambiental — poluição de rios como o Jaboatão, afetando comunidades tradicionais e pescadores. Ocupação desordenada e repetidas enchentes nas áreas periféricas.</p>
+        </div>
+        <div class="timeline-item">
+          <time>século XXI</time>
+          <p>Inundações frequentes e falta de infraestrutura nas áreas periféricas — movimentos comunitários e organizações começam a mapear e denunciar injustiças ambientais, pressionando por políticas públicas.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer container">
+    <div>
+      <small>© 2025 — Leitos da Escravidão — Observatório Ambiental. Desenvolvido como demonstração frontend.</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

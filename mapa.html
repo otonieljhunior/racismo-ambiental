@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa — Leitos da Escravidão</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+  <header class="site-header light">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="logo-text">Leitos da Escravidão</h1>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Início</a>
+        <a href="mapa.html" class="nav-link active">Mapa</a>
+        <a href="dados.html" class="nav-link">Dados Públicos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="map-main">
+    <section class="map-intro container">
+      <h2>Mapa Interativo — Jaboatão Centro</h2>
+      <p>Use os filtros para exibir tipos de ocorrências e explore os pontos no mapa.</p>
+      <div class="map-controls">
+        <label><input type="checkbox" id="fEnchentes" checked> Enchentes</label>
+        <label><input type="checkbox" id="fLixo" checked> Lixo / Esgoto</label>
+        <label><input type="checkbox" id="fDeslizes" checked> Deslizamentos</label>
+      </div>
+    </section>
+
+    <div id="map" style="height:600px;"></div>
+
+    <section class="container map-legend">
+      <h3>Legenda</h3>
+      <ul>
+        <li><span class="dot flood"></span> Enchentes</li>
+        <li><span class="dot waste"></span> Lixo / Esgoto</li>
+        <li><span class="dot slide"></span> Deslizamentos</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 — Leitos da Escravidão</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+  // Map initialization and markers (local, frontend)
+  const map = L.map('map').setView([-8.1795, -35.0035], 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // sample data points centered on Jaboatão Centro
+  const data = [
+    {id:1, lat:-8.1800, lng:-35.0042, type:'Enchente', title:'Rua 1 - Enchente', desc:'Alagamento recurrente próximo ao mercado.'},
+    {id:2, lat:-8.1788, lng:-35.0120, type:'Lixo', title:'Boca de Lixo', desc:'Depósito irregular entre ruas.'},
+    {id:3, lat:-8.1770, lng:-35.0065, type:'Deslizamento', title:'Encosta com risco', desc:'Solo exposto após cortes irregulares.'},
+    {id:4, lat:-8.1825, lng:-35.0030, type:'Enchente', title:'Ribeirão - Enchente', desc:'Riacho transbordou e invadiu casas.'}
+  ];
+
+  const layers = { Enchente: L.layerGroup().addTo(map), Lixo: L.layerGroup().addTo(map), Deslizamento: L.layerGroup().addTo(map) };
+
+  data.forEach(d => {
+    const color = d.type==='Enchente'?'#1f6f5c': (d.type==='Lixo'?'#c04b3c':'#b57a32');
+    const marker = L.circleMarker([d.lat,d.lng], {radius:8, fillColor:color, color:'#fff', weight:1, fillOpacity:0.9})
+      .bindPopup('<strong>'+d.title+'</strong><br/>'+d.desc);
+    layers[d.type].addLayer(marker);
+  });
+
+  // filter checkboxes
+  document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('fEnchentes').addEventListener('change', e=>{
+      if(e.target.checked) map.addLayer(layers['Enchente']); else map.removeLayer(layers['Enchente']);
+    });
+    document.getElementById('fLixo').addEventListener('change', e=>{
+      if(e.target.checked) map.addLayer(layers['Lixo']); else map.removeLayer(layers['Lixo']);
+    });
+    document.getElementById('fDeslizes').addEventListener('change', e=>{
+      if(e.target.checked) map.addLayer(layers['Deslizamento']); else map.removeLayer(layers['Deslizamento']);
+    });
+  });
+  </script>
+</body>
+</html>

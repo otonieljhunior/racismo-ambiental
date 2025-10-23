@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dados Públicos — Leitos da Escravidão</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="site-header light">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="logo-text">Leitos da Escravidão</h1>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Início</a>
+        <a href="mapa.html" class="nav-link">Mapa</a>
+        <a href="dados.html" class="nav-link active">Dados Públicos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section container">
+    <h2>Painel de Dados Públicos</h2>
+    <p>Relatórios e estatísticas coletados pela comunidade. Os gráficos abaixo são atualizáveis localmente.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Distribuição por tipo</h3>
+        <canvas id="chartTipos" height="200"></canvas>
+      </div>
+      <div class="card">
+        <h3>Relatos recentes</h3>
+        <ul id="recentList" class="recent-list"></ul>
+      </div>
+    </div>
+
+    <div class="card full">
+      <h3>Dados brutos (JSON)</h3>
+      <pre id="jsonDump" class="json-dump"></pre>
+    </div>
+
+  </main>
+
+  <footer class="footer container">
+    <small>© 2025 — Leitos da Escravidão</small>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+
+    const stored = JSON.parse(localStorage.getItem('leitos_reports') || '[]');
+    const counts = { Enchente:0, Lixo:0, Esgoto:0, Deslizamento:0, Arborizacao:0, Outro:0 };
+    stored.forEach(r => counts[r.tipo] = (counts[r.tipo]||0)+1);
+
+    const ctx = document.getElementById('chartTipos').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(counts),
+        datasets: [{ data: Object.values(counts), backgroundColor:['#1f6f5c','#c04b3c','#8aa4bf','#b57a32','#4aa96c','#8b6b8d'] }]
+      },
+      options: { responsive:true, plugins:{legend:{position:'bottom'}}}
+    });
+
+    const recentList = document.getElementById('recentList');
+    stored.slice(-6).reverse().forEach(r=>{
+      const li = document.createElement('li');
+      li.innerHTML = '<strong>'+ (r.nome||'Anônimo') +'</strong> — <em>'+ r.bairro +'</em>: '+ r.texto;
+      recentList.appendChild(li);
+    });
+
+    document.getElementById('jsonDump').textContent = JSON.stringify(stored, null, 2);
+  </script>
+</body>
+</html>
